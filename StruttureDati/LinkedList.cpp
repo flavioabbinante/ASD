@@ -101,8 +101,104 @@ class LinkedList{
 
         }
 
+        /*
+            Inserisce un elemento in una posizione specifica
+            Se l'indice è > i, l'operazione non viene svolta
+            si potrebbe pensare di inserire l'elemento alla fine
+        */
+        void insertAt(int index,T e){
+            ListNode<T> * curr = head;
+            ListNode<T> * tmp;
 
+            int i = 0;
+
+
+            if (!isEmpty()){
+
+                if (index==0){
+                    pushFront(e);
+                }else{
+                    while (curr != nullptr && i < index-1)
+                    {
+                        curr = curr->next;
+                        i++;
+                    }
+
+                    if (curr != nullptr){
+                        ListNode<T>* newNode = new ListNode<T>();
+                        newNode->val = e;
+
+                        tmp = curr->next;
+                        curr->next = newNode;
+                        newNode->next = tmp;
+                    } 
+                }       
+                
+            }else{
+                pushFront(e);
+            }
+       }
         
+       /*
+            Inserisce un nodo in una lista ordinata
+       */
+        void insertSorted(T, e);
+
+        // ============================================================ //
+
+        /*
+            === FUNZIONI DI CANCELLAZIONE ===
+        
+            1. removeFront: rimuove un nodo all'inizio della lista.
+            2. removeBack: rimuove un nodo alla fine della lista.
+            3. removeAt: rimuove un nodo in una posizione specifica.
+            4. removeValue: rimuove un nodo con un determinato valore.
+
+        */
+
+        // Rimuove il nodo all'inizio
+        void removeFront(){
+
+            ListNode<T> * toDelete;
+
+            if (!isEmpty()){
+                toDelete = head;
+                head = head->next;
+                delete toDelete;            
+            }
+
+        }
+
+        // Rimuove il nodo alla fine della lista
+        void removeBack(){
+
+            ListNode<T> * curr = head;
+            ListNode<T> * prec = head;
+
+            if (!isEmpty())
+            {
+
+                if(head->next == nullptr){
+                    delete head;
+                    head = nullptr;
+                }
+                else{
+                    while (curr->next != nullptr) {
+                        prec = curr;
+                        curr = curr->next;
+                    }
+
+                    prec->next = nullptr;
+                    delete curr;  
+                }
+
+            }
+            
+        }
+
+        // Rimuove il nodo ad un determinato indice 
+        
+
         bool isEmpty(){
             return head==nullptr;
         }
