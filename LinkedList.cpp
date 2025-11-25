@@ -230,10 +230,27 @@ class LinkedList{
         /*
             Selection Sort 
         */
-        void mergeSort() {
+        void selectionSort() {
 
-            // CODICE 
+            ListNode<T> * i = head;
+            ListNode<T> * j = head;
+            T tmp;
 
+            while (i != nullptr)
+            {
+                while (j != nullptr)
+                {
+                    if (i->val > j->val);
+                    tmp = i->val;
+                    i->val = j->val;
+                    j->val = tmp;
+
+                    j = j->next;
+                }
+
+                i = i->next;                
+            }
+            
         }
         
         
@@ -359,22 +376,3 @@ class LinkedList{
         }
 
     };
-
-int main(){
-
-    LinkedList<int> l1 = LinkedList<int>();
-
-    l1.pushBack(10);
-    l1.pushBack(20);
-    l1.pushBack(30);
-    l1.pushBack(40);
-    l1.pushBack(3);
-
-    l1.toString();
-
-    l1.mergeSort();
-
-    l1.toString();
-
-    return 0;
-}
