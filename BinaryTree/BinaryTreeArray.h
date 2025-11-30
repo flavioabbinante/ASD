@@ -202,20 +202,16 @@ class BinaryTreeArray : public BinaryTree<T,int>{
 
         // Visita in preorder: R - S - D
         void preOrder(int root) override{
-
             // Passo Base
             if (root < 1 || root >= MAX || !valid[root]) {
                 return;
             }
-
             // Visita
             std::cout << nodes[root] << "-";
-
             // Passo Induttivo
             preOrder(root*2); // Passo a sinistra
             // La sinistra è vuota allora vado a destra
             preOrder(root*2+1);
-
         }
 
         // Visita inOrder: S-R-D
@@ -247,7 +243,8 @@ class BinaryTreeArray : public BinaryTree<T,int>{
 
         }
 
-    };   
+    };
+
 
 
 
