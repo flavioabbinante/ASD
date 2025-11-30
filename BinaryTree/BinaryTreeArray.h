@@ -1,10 +1,8 @@
 /* ============================================================
- *  ALBERO BINARIO (Binary Tree) Implementazione sequenziale con ARRAY
- *  
- *  Implementazione di un albero binario con array utilizzando
- *  la classe astratta BinaryTree.h
- * 
- * ============================================================ */
+ * ALBERO BINARIO (Binary Tree) Implementazione sequenziale con ARRAY
+ * * Implementazione di un albero binario con array utilizzando
+ * la classe astratta BinaryTree.h
+ * * ============================================================ */
 
 
 #ifndef BT_ARRAY_H
@@ -14,7 +12,8 @@
 #include "BinaryTree.h"
 
 // Trattandosi di una implementazione sequenziale definisco il massimo di elementi
-#define MAX 32
+// Aumento a 33 per avere 32 posizioni utili, ignorando l'indice 0.
+#define MAX 33
 
 template <class T>
 class BinaryTreeArray : public BinaryTree<T,int>{
@@ -33,11 +32,11 @@ class BinaryTreeArray : public BinaryTree<T,int>{
 
             std::cout << "[" << nodes[nodeIndex] << ", ";
 
-            int left = 2*nodeIndex + 1;
-            int right = 2*nodeIndex + 2;
+            int left = 2 * nodeIndex;
+            int right = 2 * nodeIndex + 1;
 
             // Figlio sinistro
-            if (left < size)
+            if (left < MAX && valid[left]) // Modificato per usare MAX e valid
                 printSubTree(left);
             else
                 std::cout << "NIL";
@@ -45,13 +44,13 @@ class BinaryTreeArray : public BinaryTree<T,int>{
             std::cout << ", ";
 
             // Figlio destro
-            if (right < size)
+            if (right < MAX && valid[right]) // Modificato per usare MAX e valid
                 printSubTree(right);
             else
                 std::cout << "NIL";
 
             std::cout << "]";
-}
+        }
 
 
     public:
@@ -71,9 +70,8 @@ class BinaryTreeArray : public BinaryTree<T,int>{
         int getRoot() const override{
 
             if (!isEmpty()){
-                int i;
-                for (i=0; i < MAX && valid[i]; i++); // Al primo valido trovato si ferma => radice trovata
-                return i;
+                // La radice è sempre in posizione 1
+                return 1;
             }else{
                 return -1;
             }
@@ -82,26 +80,23 @@ class BinaryTreeArray : public BinaryTree<T,int>{
 
         // Ritorna l'indice di nodo a SINISTRA di un NODO dato
         int getSx(int nodeIndex) const override{
-            if (nodeIndex >= 0 && nodeIndex < MAX && valid[nodeIndex]){
+            if (nodeIndex >= 1 && nodeIndex < MAX && valid[nodeIndex]){ // Modificato per indicizzazione >= 1
                 if (!sxEmpty(nodeIndex))
                 {
-                    return nodeIndex*2+1;   
+                    return nodeIndex * 2;   
                 }
             }
-
             return -1;
         }
 
         // Ritorna l'indice di nodo a DESTRA di un NODO dato
         int getDx(int nodeIndex) const override{
-            
-            if (nodeIndex >= 0 && nodeIndex < MAX && valid[nodeIndex]){
+            if (nodeIndex >= 1 && nodeIndex < MAX && valid[nodeIndex]){ // Modificato per indicizzazione >= 1
                 if (!dxEmpty(nodeIndex))
                 {
-                    return nodeIndex*2+2;   
+                    return nodeIndex * 2 + 1;   
                 }
             }
-
             return -1;
         }            
 
@@ -110,18 +105,17 @@ class BinaryTreeArray : public BinaryTree<T,int>{
         void insRoot(T val) override{
             if (isEmpty())
             {
-                nodes[0] = val;
-                valid[0] = true;
+                nodes[1] = val; // Modificato: Radice in posizione 1
+                valid[1] = true;
                 size++;
             }
         }
 
         // Inserisce il nodo a SX dato un indice
         void insSx(int index, T val) override{
-
-            int child = 2 * index + 1;
-
-            if (sxEmpty(index) && child < MAX)
+            int child = 2 * index;
+            // Controlla che il genitore sia valido e che il figlio non esista e sia in MAX
+            if (index >= 1 && index < MAX && valid[index] && child < MAX && !valid[child])
             {
                 nodes[child] = val;
                 valid[child] = true;
@@ -131,10 +125,9 @@ class BinaryTreeArray : public BinaryTree<T,int>{
 
         // Inserisce il nodo a DX dato un indice
         void insDx(int index, T val) override{
-
-            int child = 2 * index + 2;
-
-            if (dxEmpty(index) && child < MAX)
+            int child = 2 * index + 1;
+            // Controlla che il genitore sia valido e che il figlio non esista e sia in MAX
+            if (index >= 1 && index < MAX && valid[index] && child < MAX && !valid[child])
             {
                 nodes[child] = val;
                 valid[child] = true;
@@ -144,7 +137,7 @@ class BinaryTreeArray : public BinaryTree<T,int>{
 
         // Ritorna il VALORE di un nodo
         T read(int index) const override{
-            if (valid[index] && index < MAX && index >= 0)
+            if (valid[index] && index < MAX && index >= 1) // Modificato per indicizzazione >= 1
             {
                 return nodes[index];
             }
@@ -154,7 +147,7 @@ class BinaryTreeArray : public BinaryTree<T,int>{
 
         // Sovrascrive il valore di un nodo
         void write(int index, T val ){
-            if (valid[index] && index < MAX && index >= 0)
+            if (valid[index] && index < MAX && index >= 1) // Modificato per indicizzazione >= 1
             {
                 nodes[index] = val;
             }
@@ -162,64 +155,47 @@ class BinaryTreeArray : public BinaryTree<T,int>{
 
         /* Verifica che il BT sia vuoto
         *
-        *   Ritorna VERO quando è vuoto
-        *   Ritorna FALSO quando ha almeno la radice
+        * Ritorna VERO quando è vuoto
+        * Ritorna FALSO quando ha almeno la radice
         */ 
         bool isEmpty() const override{
-            int i = 0;
-
-            for (i=0;i<MAX;i++){
-
-                if(valid[i]){ // Se c'è almeno un nodo TRUE allora esiste almeno la radice quindi NON è vuoto
-                    return false;
-                }
-
-            }
-
-            return true; // Altrimenti è vuoto;
+            // La verifica ottimizzata si basa sul nodo 1
+            return !valid[1]; 
         }
 
         // Verifica se un nodo ha figli a destra o a sinistra
         // Funzione per i nodi di dx: 2*i + 1
-        // Funzione per i nodi di sx: 2*1 + 2
+        // Funzione per i nodi di sx: 2*i
         bool sxEmpty(int nodeIndex) const override{
-
-            if (nodeIndex >= 0 && nodeIndex < MAX && valid[nodeIndex])
+            if (nodeIndex >= 1 && nodeIndex < MAX && valid[nodeIndex]) // Modificato per indicizzazione >= 1
             {
-                int child = 2 * nodeIndex + 1; // Indice del nodo figlio
-
+                int child = 2 * nodeIndex; // Indice del nodo figlio sinistro
                 if (child < MAX && valid[child])
                 {
                     return false;
                 }
-                
             }
-            
             return true;
         }
 
         bool dxEmpty(int nodeIndex) const override{
-
-            if (nodeIndex >= 0 && nodeIndex < MAX && valid[nodeIndex])
+            if (nodeIndex >= 1 && nodeIndex < MAX && valid[nodeIndex]) // Modificato per indicizzazione >= 1
             {
-                int child = 2 * nodeIndex + 2; // Indice del nodo figlio DESTRO
-
+                int child = 2 * nodeIndex + 1; // Indice del nodo figlio destro
                 if (child < MAX && valid[child])
                 {
                     return false;
                 }
-                
             }
-            
             return true;
         }
 
         void toString() const override{
 
-            if (size == 0) {
+            if (isEmpty()) {
                 std::cout << "[]" << std::endl;
             } else {
-                printSubTree(0); // radice indice 0
+                printSubTree(1); // Modificato: radice indice 1
                 std::cout << std::endl;
             }
 

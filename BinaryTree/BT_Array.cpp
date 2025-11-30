@@ -21,14 +21,14 @@ int main() {
     tree.insRoot(1);
 
     // Livello 1
-    tree.insSx(0, 2);  // figlio sinistro di 1
-    tree.insDx(0, 3);  // figlio destro di 1
+    tree.insSx(1, 2);  // figlio sinistro di 1
+    tree.insDx(1, 3);  // figlio destro di 1
 
     // Livello 2
-    tree.insSx(1, 4);  // figlio sinistro di 2
-    tree.insDx(1, 5);  // figlio destro di 2
-    tree.insSx(2, 6);  // figlio sinistro di 3
-    tree.insDx(2, 7);  // figlio destro di 3
+    tree.insSx(2, 4);  // figlio sinistro di 2
+    tree.insDx(2, 5);  // figlio destro di 2
+    tree.insSx(3, 6);  // figlio sinistro di 3
+    tree.insDx(3, 7);  // figlio destro di 3
 
     std::cout << "Albero binario completo:" << std::endl;
     tree.toString(); // stampa ricorsiva
