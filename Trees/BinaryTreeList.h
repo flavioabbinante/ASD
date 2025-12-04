@@ -13,6 +13,7 @@
 #include "BinaryTree.h"
 
 #include "../Stack/Stack.h"
+#include "../Queue/Queue.h"
 
 template <class T>
 class BinaryTreeList: public BinaryTree<T , TreeNode<T>*>{
@@ -222,8 +223,54 @@ class BinaryTreeList: public BinaryTree<T , TreeNode<T>*>{
             postOrder(root->dx);
             std::cout << root->val << "-";
      
-        }        
+        }
+        
+        // Breath First Search
+        /* 
+           Serve a trovare la profondità minima per cercare qualcosa
+           Generare la vista dell'albero livello per livello
+        */
 
+        void BFS(TreeNode<T>* root) const{
+            
+            /* La BFS ha bisogno di una CODA perchè c'è bisogno di tenere
+               traccia dei nodi al livello sottostante che verranno visitati
+               al termine del livello corrente
+            */ 
+            Queue<TreeNode<T>*> coda;
+            TreeNode<T>* current;
+
+            // Se l'albero è vuoto, non c'è nulla da visitar            
+            if (!root)
+            {
+                return;
+            }
+
+            // Inizio dalla radice
+            coda.enqueue(root);
+
+            // Finchè ci saranno nodi nella coda, l'albero non sarà finito
+            while (!coda.isEmpty())
+            {
+
+                current = coda.dequeue(); // Estraggo il primo dalla coda 
+
+                std::cout << current->val << " "; // Visito il nodo PER LA PRIMA VOLTA
+
+                // Inserisco in coda i nodi figli che dovrà visitare al prossimo livello (se esistono)
+                // Metto prima il sinistro perche la BFS vuole la lettura da SX verso DX
+                if (!sxEmpty(current))
+                {
+                    coda.enqueue(current->sx);
+                }
+                
+                if (!dxEmpty(current))
+                {
+                    coda.enqueue(current->dx);
+                }
+
+            }           
+        }
     };
 
 

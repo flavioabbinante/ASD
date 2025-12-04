@@ -2,6 +2,18 @@
 #include "BinaryTreeArray.h"
 #include "BinaryTreeList.h"
 
+/*
+
+                                      H
+                                 /         \
+                               A             C
+                             /   \         /   \
+                           D       L     P       S
+                                 /   \
+                                O     Q
+
+*/
+
 int main() {
 
     // ========================
@@ -75,6 +87,11 @@ int main() {
     std::cout << "\nPostOrder: ";
     treeList.postOrder(treeList.getRoot());
     std::cout << "\nValore del genitore del nodo 'l': " << treeList.read(treeList.getParent(l)) << std::endl;
+
+
+    std::cout << "\nBFS: " << std::endl;
+    treeList.BFS(treeList.getRoot());
+
 
     return 0;
 }
