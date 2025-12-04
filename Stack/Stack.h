@@ -57,17 +57,21 @@ public:
     } 
     
     /* == FUNZIONE POP ==
-        Rimuove il nodo in cima alla Pila
+        Rimuove e ritorna il nodo in cima alla Pila
     */
-    void pop(){
+    T pop(){
 
         StackNode<T> * toDelete;
         
         if(!isEmpty()){
             toDelete = top;
+            T popVal = toDelete->val; // Valore del nodo cancellato
             top = top->next;
             delete toDelete;
+            return popVal;
         }
+
+        return nullptr;
         
     }
     
