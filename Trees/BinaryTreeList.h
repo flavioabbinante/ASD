@@ -55,6 +55,19 @@ class BinaryTreeList: public BinaryTree<T , TreeNode<T>*>{
         
         }
 
+        // Cancellazione di un sotto-albero
+        void erase(TreeNode<T>* &root){
+            // Passo Base
+            if (root == nullptr) {
+                return;
+            }
+
+            // Passo Induttivo
+            erase(root->sx); // Passo a sinistra
+            erase(root->dx); // Destra
+            delete root;
+            root = nullptr; 
+        }
 
         //  == Inserimento ==
 

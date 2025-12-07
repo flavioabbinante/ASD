@@ -21,7 +21,8 @@ class BinaryTreeArray : public BinaryTree<T,int>{
         // Nodi dell'albero
         T nodes[MAX];
 
-        // Array parallelo di booleani, ci dice se sono disponibili
+        // valid[i] = true  -> il nodo esiste
+        // valid[i] = false -> il nodo è vuoto/non presente
         bool valid[MAX];
 
         // Numero di nodi
@@ -63,6 +64,19 @@ class BinaryTreeArray : public BinaryTree<T,int>{
             }
 
             size = 0;         
+        }
+
+        // Cancellazione di un sotto-albero
+        void erase(int root){
+            // Passo Base
+            if (root < 1 || root >= MAX || !valid[root]) {
+                return;
+            }
+
+            // Passo Induttivo
+            erase(root*2); // Passo a sinistra
+            erase(root*2+1); // Destra
+            valid[root] = false;
         }
 
         // Ritorna l'indice della radice

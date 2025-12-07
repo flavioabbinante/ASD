@@ -45,7 +45,12 @@ int main() {
     treeArray.postOrder(1);
     std::cout << "\nValore del genitore del nodo 4: " << treeArray.read(treeArray.getParent(4)) << std::endl;
 
+    treeArray.erase(2);
+    treeArray.toString();
+
+
     std::cout << "\n---------------------------------\n" << std::endl;
+
 
     // ==========================
     // ALBERO BINARIO CON LISTE
@@ -79,19 +84,20 @@ int main() {
     std::cout << "Stampa dell'albero (ricorsiva, [val, sx, dx]):" << std::endl;
     treeList.toString();
 
-    std::cout << "\nVisite sull'albero linked list:" << std::endl;
-    std::cout << "PreOrder: ";
-    treeList.preOrder(treeList.getRoot());
-    std::cout << "\nInOrder: ";
-    treeList.inOrder(treeList.getRoot());
-    std::cout << "\nPostOrder: ";
-    treeList.postOrder(treeList.getRoot());
-    std::cout << "\nValore del genitore del nodo 'l': " << treeList.read(treeList.getParent(l)) << std::endl;
-
-
-    std::cout << "\nBFS: " << std::endl;
+    std::cout << "\nBFS prima della cancellazione:" << std::endl;
     treeList.BFS(treeList.getRoot());
 
+    // ==========================
+    // Cancellazione solo del sotto-albero 'a'
+    // ==========================
+    // Stacco 'a' dal genitore
+    if (root->sx == a) root->sx = nullptr;
+
+    // Cancello il sottoalbero
+    treeList.erase(a);
+
+    std::cout << "\nBFS dopo cancellazione del sotto-albero 'a':" << std::endl;
+    treeList.BFS(treeList.getRoot()); // funziona correttamente
 
     return 0;
 }
