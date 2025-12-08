@@ -21,9 +21,7 @@ private:
 public:
 
 
-    //==== ATTENZIONE QUI >>>> virtual void erase() { };
     // Quando scrivo = 0, dico alle classi che ereditano che devono avere per forza quella funzione
-    // TODO: METTI = 0
 
     /* === FUNZIONI DI ACCESSO === */
     // Restituisce la root dell'albero
@@ -50,6 +48,8 @@ public:
     virtual DataType read(NodeType) const = 0;
     // Scrive un valore in un nodo
     virtual void write(NodeType, DataType) = 0;
+    // Cancella un sottoalbero
+    virtual void erase(NodeType) { };
 
     /* === FUNZIONI DI INSERIMENTO === */
     // Inserisce la radice
