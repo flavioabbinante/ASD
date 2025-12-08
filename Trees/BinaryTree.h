@@ -50,6 +50,7 @@ public:
     virtual void write(NodeType, DataType) = 0;
     // Cancella un sottoalbero
     virtual void erase(NodeType) { };
+    // Search
 
     /* === FUNZIONI DI INSERIMENTO === */
     // Inserisce la radice

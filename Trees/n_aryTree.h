@@ -32,13 +32,20 @@ public:
     virtual NodeType getNextSibling(NodeType node) const = 0;
     // Ritorna il genitore del figlio passato
     virtual NodeType getParent(NodeType child) const = 0;
-    // Ritorna il valore di un noto
+
+    // Ritorna il valore di un nodo 
     virtual DataType getValue(NodeType node) const = 0;
 
+    // GetHeight
+    // GetDepth
+    // getDegree
 
-    /** =============================
-     *            INSERIMENTO
-     *  ============================= */
+
+    // Search
+
+
+
+    // == INSERIMENTO ==
 
     // Inserimento alla radice
     virtual void setRoot(DataType value) = 0;
@@ -56,10 +63,8 @@ public:
 
 
     // === CANCELLAZIONE ===
-    // Cancella un nodo
-    virtual void erase(NodeType node) = 0;
-
-    virtual void eraseSubtree(NodeType subTreeRoot) = 0;
+    // Cancella un sottoalbero
+    virtual void eraseSubtree(NodeType subTreeRoot) = 0; // Se la radice non ha figli, si elimina solo quella quindi cancella anche il nodo :)
 
     // === Funzioni di controllo ===
 
@@ -84,4 +89,4 @@ public:
 
 };
 
-#endif
+#endif // N_TREE_H
