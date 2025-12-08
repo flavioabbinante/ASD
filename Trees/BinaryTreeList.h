@@ -9,7 +9,7 @@
 #define BINARY_TREE_LIST_H
 
 #include <iostream>
-#include "NTree.h"
+#include "TreeNode.h"
 #include "BinaryTree.h"
 
 #include "../Stack/Stack.h"
