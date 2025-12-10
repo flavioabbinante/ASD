@@ -8,6 +8,7 @@
  * 
  * Questa rappresentazione trasforma un albero n-ario in una struttura binaria,
  * permettendo un numero illimitato di figli per nodo.
+ * 
  */
 
 #ifndef NT_FCNS_H
