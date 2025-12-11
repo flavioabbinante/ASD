@@ -17,7 +17,7 @@
 
 template <class T>
 class BinaryTreeList: public BinaryTree<T , TreeNode<T>*>{
-    private:
+    protected:
         TreeNode<T> * root;
 
         void printSubTree(TreeNode<T>* tn) const {

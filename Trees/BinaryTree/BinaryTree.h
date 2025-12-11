@@ -20,14 +20,11 @@ private:
 
 public:
 
-
     // Quando scrivo = 0, dico alle classi che ereditano che devono avere per forza quella funzione
 
     /* === FUNZIONI DI ACCESSO === */
     // Restituisce la root dell'albero
     virtual NodeType getRoot() const = 0;
-    // Restituisce il genitore del nodo
-    
     // Restituisce il nodo a sinistra
     virtual NodeType getSx(NodeType) const = 0;
     // Restituisce il nodo a destro
@@ -43,14 +40,13 @@ public:
     // Controlla se il nodo a destra è vuoto
     virtual bool dxEmpty(NodeType) const = 0;
 
-    /* === FUNZIONI DI LETTURA E SCRITTURA === */
+    /* === FUNZIONI DI LETTURA E SCRITTURA (OPZIONALI) === */
     // Legge il valore di un nodo
-    virtual DataType read(NodeType) const = 0;
+    virtual DataType read(NodeType) const { return DataType(); }
     // Scrive un valore in un nodo
-    virtual void write(NodeType, DataType) = 0;
+    virtual void write(NodeType, DataType) { }
     // Cancella un sottoalbero
-    virtual void erase(NodeType) { };
-    // Search
+    virtual void erase(NodeType) { }
 
     /* === FUNZIONI DI INSERIMENTO === */
     // Inserisce la radice
@@ -64,10 +60,10 @@ public:
     // Stampa l'albero
     virtual void toString() const = 0;
 
-    /* === ALGORITMI DI VISITA */
-    virtual void preOrder(NodeType) const = 0; // R S D
-    virtual void inOrder(NodeType) const = 0; // D R S
-    virtual void postOrder(NodeType) const = 0; // S D R
+    /* === ALGORITMI DI VISITA (OPZIONALI) === */
+    virtual void preOrder(NodeType) const { } // R S D
+    virtual void inOrder(NodeType) const { }  // D R S
+    virtual void postOrder(NodeType) const { } // S D R
 };
 
 #endif // BINARY_TREE_H
