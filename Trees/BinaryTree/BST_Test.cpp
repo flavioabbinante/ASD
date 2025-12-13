@@ -12,7 +12,8 @@ int main() {
 
     tree.inOrder(tree.getRoot());
     std::cout << std::endl;
-
+    std::cout << tree.getMin(tree.getRoot())->val << std::endl;
+    std::cout << tree.getMax(tree.getRoot())->val << std::endl;
 
     return 0;
 }

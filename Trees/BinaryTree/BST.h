@@ -79,10 +79,32 @@ class BST: public BinaryTreeList<T>{
 
         // Erase è un po difficile 
 
-        // getMin
+        /**
+ * Restituisce il nodo con il valore minimo nel BST.
+ * Si scende ricorsivamente a sinistra: il minimo è il
+ * primo nodo che non ha un figlio sinistro.
+ */
+        TreeNode<T>* getMin(TreeNode<T>* node){
+
+            if (node->sx == nullptr)
+            {
+                return node;
+            }
+
+            return getMin(node->sx);
+            
+        }
 
         // getMax
+        TreeNode<T>* getMax(TreeNode<T>* node){
 
+            if (node->dx == nullptr)
+            {
+                return node;
+            }
+
+            return getMax(node->dx);
+        }
 
 
 };
