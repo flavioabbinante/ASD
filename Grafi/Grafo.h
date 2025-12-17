@@ -55,10 +55,10 @@ class Grafo{
         virtual LinkedList<N*> getAdjacentNodes(N node) const = 0; 
 
         // Restituisce il valore del nodo corrente
-//        virtual E getNodeLabel(N node) const = 0; 
-//
-//        // Restituisce il peso dell'arco
-//        virtual P getEdgeWeight(N node1, N node2) const = 0; 
+        virtual E getNodeLabel(N node) const = 0; 
+
+        // Restituisce il peso dell'arco
+        virtual P getEdgeWeight(N node1, N node2) const = 0; 
 
         // --- Setters ---
         // Imposta il valore dell'etichetta

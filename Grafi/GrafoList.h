@@ -174,6 +174,43 @@ class GraphList: public Grafo<E,P,GraphNode>{
             return result;                        
         }
 
+        // Ritorna l'etichetta del nodo
+        E getNodeLabel(GraphNode node) const override{
+
+            E etichetta = E();
+
+            if (!nodi[node.getGraphNodeId()].vuoto)
+            {
+                etichetta =nodi[node.getGraphNodeId()].etichetta; 
+            }
+            
+            return etichetta;
+        }
+
+        P getEdgeWeight(GraphNode from, GraphNode to) const override{
+            // id dei nodi
+            int idFrom = from.getGraphNodeId();
+            int idTo = to.getGraphNodeId();
+                
+            // Lista degli archi del nodo from
+            int numeroArchi = nodi[idFrom].archi.size(); // Numero di archi che devo scorrere
+                
+            // Scorriamo la lista per trovare l'arco verso to
+            for (int i = 0; i < numeroArchi; i++) {
+
+                // oggetto InfoArco all'indice i
+                InfoArco<P> arco = nodi[idFrom].archi.getAt(i);
+                
+                // Se la destinazione dell'arco corrisponde all'ID di to
+                if (arco.to.getGraphNodeId() == idTo) {
+                    return arco.peso; // Restituiamo il peso trovato
+                }
+            }
+        
+            // Se non esiste si ritorna uno vuoto
+            return P();            
+        }
+
         // Inserisce un nuovo nodo
         void insertNode(GraphNode& node, E label = E()) override{
             // Scorro l'array di nodi fin quando non trovo una posto libero
