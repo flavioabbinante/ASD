@@ -121,7 +121,7 @@ class GraphList: public Grafo<E,P,GraphNode>{
 
         // Getters e controlli base
         bool isEmpty() const override{
-            return nodi == nullptr;
+            return nNodi == 0;
         }
 
         // Numero di nodi
@@ -135,17 +135,15 @@ class GraphList: public Grafo<E,P,GraphNode>{
         }
 
         // Numero totale di nodi
-        LinkedList<GraphNode*> getNodes() const override{
+        LinkedList<GraphNode> getNodes() const override{
             
-            LinkedList<GraphNode*> result;
+            LinkedList<GraphNode> result;
 
             for (int i = 0; i < maxNodi; i++)
             {
                 if (!nodi[i].vuoto)
                 {
-                    GraphNode* gi = new GraphNode(i);
-
-                    result.pushBack(gi);
+                    result.pushBack(GraphNode(i));
                 }
                 
             }
@@ -246,9 +244,44 @@ class GraphList: public Grafo<E,P,GraphNode>{
 
         }
 
+        // Imposta il valore dell'etichetta
+        void setNodeLabel(GraphNode node, E label) override{
 
+            int noteSetId = node.getGraphNodeId(); // Acquisisco l'id dal nodo che mi interessa
 
+            // Controllo l'id
+            if (noteSetId >= 0 && noteSetId <= maxNodi && !nodi[noteSetId].vuoto) 
+            {
+                nodi[noteSetId].etichetta = label;
+            }
+            
+        }
 
+        // Imposto il valore del peso in un arco tra due nodi
+        void setEdgeWeight(GraphNode n1, GraphNode n2, P weight) override {
+
+            int fromNodeId = n1.getGraphNodeId();
+            int toNodeId = n2.getGraphNodeId();
+
+            // Assumendo che i nodi esistano
+            
+            int numArchi = nodi[fromNodeId].archi.size(); // Numero totale di archi collegati al nodo 1
+
+            for (int i = 0; i < numArchi; i++){
+                // Acquisisco il nodo di arrivo prendendo l'arco
+                InfoArco<P> arco =  nodi[fromNodeId].archi.getAt(i);
+
+                if (arco.to.getGraphNodeId() == toNodeId)
+                {
+                    arco.peso = weight;
+
+                    nodi[fromNodeId].archi.changeAt(arco,i);
+
+                    return;
+                }
+
+            }
+        }
 
         void toString() const {
             for (int i = 0; i < maxNodi; i++) {

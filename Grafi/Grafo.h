@@ -49,7 +49,7 @@ class Grafo{
         virtual int getNumEdges() const = 0; 
 
         // Restituisce tutti i nodi
-        virtual LinkedList<N*> getNodes() const = 0; 
+        virtual LinkedList<N> getNodes() const = 0; 
 
         // Restituisce i nodi adiacenti
         virtual LinkedList<N*> getAdjacentNodes(N node) const = 0; 
@@ -62,10 +62,10 @@ class Grafo{
 
         // --- Setters ---
         // Imposta il valore dell'etichetta
-//        virtual void setNodeLabel(N node, E label) = 0; 
+        virtual void setNodeLabel(N node, E label) = 0; 
 
         // Imposta il peso dell'arco
-//        virtual void setEdgeWeight(N node1, N node2, P weight) = 0; 
+        virtual void setEdgeWeight(N node1, N node2, P weight) = 0; 
 
         // --- Modifica struttura ---
         // Inserisce un Nodo
