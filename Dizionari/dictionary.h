@@ -49,6 +49,8 @@ public:
     /* === FUNZIONI SCRITTURA === */
     // Inserisce la coppia nel dizionario
     virtual void insert(Pair<K,T>& pair) = 0;
+    virtual void insert(K key, T val) = 0;
+
 
     // Modifica un valore associato alla chiave nel dizionario
     virtual void modify(const K& key, const T& e) = 0;

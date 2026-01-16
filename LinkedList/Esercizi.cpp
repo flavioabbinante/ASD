@@ -15,12 +15,13 @@
 
 #include <iostream>
 #include "LinkedList.h"
+#include "../Dizionari/HashTable.h"
 
 using namespace std;
 
 int freq(LinkedList<int> &l, int k){
 
-    int multipli = 0;
+    int multipli = 0; // Contatore di multipli
 
     for (int i = 0; i < l.size(); i++)
     {
@@ -35,6 +36,7 @@ int freq(LinkedList<int> &l, int k){
 }
 
 void remp(LinkedList<int> &l) {
+
     int i = 0;
 
     // faccio size - 1 perchè mi fermo al penultimmo visto che dopo l'ultimo non c'è niente
@@ -54,6 +56,32 @@ void remp(LinkedList<int> &l) {
             i++; 
         }
     }
+}
+
+// Stampa la frequenza di ogni elemento presente nella lista L.
+void hist(LinkedList<int> &l, int size){
+
+    HashTable<int,int> ht(size);
+
+    int i = 0;
+    int num;
+
+    while(i < l.size()){
+        num = l.getAt(i);
+
+        if(ht.find(num) == nullptr){
+            ht.insert(num, 1);
+        }else{
+
+            int newVal = ht.find(num)->value + 1;
+
+            ht.modify(num, newVal);
+        }
+
+        i++;
+    }
+
+    ht.toString();
 }
 
 
@@ -103,6 +131,27 @@ int main() {
 
     cout << "Lista dopo l'operazione remp:" << endl;
     l2.toString();
+
+    /* ============================================================
+       ================ TEST FUNZIONE hist() ======================
+       ============================================================ */
+
+       LinkedList<int> l3;
+
+       // Inserimento elementi della lista: 1 - 2 - 1 - 4 - 4 - 5 - 8
+        l3.pushFront(1);
+        l3.pushBack(2);
+        l3.pushBack(1);
+        l3.pushBack(4);
+        l3.pushBack(4);
+        l3.pushBack(5);
+        l3.pushBack(8);
+        
+        l3.toString();
+        
+        cout << "HIST: \n" << endl;
+
+        hist(l3,l3.size());
 
 
     return 0;

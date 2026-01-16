@@ -1,5 +1,4 @@
 #include "Queue.h"
-#include "Stack.h"
 
 int main(){
 
@@ -11,15 +10,6 @@ int main(){
     q.toString();
     q.dequeue();
     q.toString();
-
-    Stack<int> t;
-
-    t.push(1);
-    t.push(2);
-    t.push(3);
-    t.toString();
-    t.pop();
-    t.toString();
 
     return 0;
 }

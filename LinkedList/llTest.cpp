@@ -3,18 +3,20 @@
 
 int main(){
 
-    LinkedList<int> l1;
+    LinkedList<int> prima;
 
-    l1.pushBack(10);
-    l1.pushFront(20);
-    l1.pushFront(40);
-    l1.pushFront(110);
-    l1.pushFront(30);
+    prima.insListaOrdinata(6);
+    prima.insListaOrdinata(5);
+    prima.insListaOrdinata(4);
 
-    std::cout << l1.size() << std::endl;
+    LinkedList<int> gino;
 
+    gino.insListaOrdinata(1);
+    gino.insListaOrdinata(2);
+    gino.insListaOrdinata(3);
 
-    l1.toString();
+    prima.merge(&gino).toString();
+
 
     return 0;
 

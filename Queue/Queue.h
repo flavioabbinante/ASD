@@ -62,15 +62,28 @@ public:
             return T(); // Non fa nulla se vuota, restituisce valore di default
         }
         QNode<T> * temp = first;
+
         T dato = temp->val;
+
         first = first->next;
+
         if (first == nullptr) {
             last = nullptr;
         }
+        
         delete temp;
         return dato;
     }
 
+    T getFirst(){
+        if (isEmpty()){
+            return T();
+        }else{
+
+            return first->val;   
+
+        } 
+    }
 
     // Controlla se è vuota
     bool isEmpty(){

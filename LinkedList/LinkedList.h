@@ -378,10 +378,39 @@ class LinkedList{
                 }
                 
             }
-            
-            head = prev;
 
+            head = prev;
         }
+
+        void insListaOrdinata(T element){
+            ListNode<T> * curr = head;
+            ListNode<T> * prev = nullptr;
+            ListNode<T>* newNode = new ListNode<T>();
+            newNode->val = element;
+
+            // Cambia qui per ordinamento crescente (<) o decrescente (>) 
+            
+            // Ordinamento crescente:
+            
+            // Qui vado avanti fin quando non trovo un cazzo di elemento più grande
+            while (curr != nullptr && curr->val < element) {
+                prev = curr;
+                curr = curr->next;
+            }
+
+            // Questo è l'inserimento in testa
+            if (prev == nullptr) {
+                newNode->next = head;
+                head = newNode;
+            // Questo è l'inserimento in mezzo ( nanz o cazz )
+            } else {
+                newNode->next = curr;
+                prev->next = newNode;
+            }
+        }
+
+
+    
 
         // Controlla se la lista è vuota
         bool isEmpty() const {
@@ -414,9 +443,8 @@ class LinkedList{
             {
                 result.pushBack(curr1->val);
                 curr1 = curr1->next;
-
             }
-
+            
             while (curr2 != nullptr)
             {
                 result.pushBack(curr2->val);
@@ -467,7 +495,6 @@ class LinkedList{
             }
 
             return c;            
-
         }
 
     };

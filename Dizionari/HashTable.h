@@ -81,6 +81,27 @@ class HashTable: public Dictionary<K,T>{
             size++;
         }
 
+        // Inserimento di una coppia con parametri diversi
+        void insert(K key, T val) override{
+
+            int index = hashFunction(key) % divisor;
+            int start = index; 
+            
+            // Cerca il primo slot libero (nullptr o DELETED)
+            while (table[index] != nullptr && table[index] != DELETED)
+            {
+                index = (index + 1) % divisor; 
+                if (index == start) // Tabella piena
+                {
+                    std::cout << "TABELLA PIENA" << std::endl;
+                    return;
+                }
+            }
+            
+            table[index] = new Pair<K,T>(key,val); 
+            size++;
+        }
+
         // Modifica di un valore
         void modify(const K& key, const T& e) override{
             int index = hashFunction(key) % divisor;
