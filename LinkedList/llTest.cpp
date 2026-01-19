@@ -3,19 +3,20 @@
 
 int main(){
 
-    LinkedList<int> prima;
+    LinkedList<int> a;
+    LinkedList<int> b;
 
-    prima.insListaOrdinata(6);
-    prima.insListaOrdinata(5);
-    prima.insListaOrdinata(4);
+    a.pushBack(1);
+    a.pushBack(7);
+    a.pushBack(2);
+    a.pushBack(4);
+    a.pushBack(6);
 
-    LinkedList<int> gino;
+    a.toString();
 
-    gino.insListaOrdinata(1);
-    gino.insListaOrdinata(2);
-    gino.insListaOrdinata(3);
+    a.exchange(0,4);
 
-    prima.merge(&gino).toString();
+    a.toString();
 
 
     return 0;

@@ -35,6 +35,7 @@
 #define LINKEDLIST_H
 
 #include <iostream>
+#include "List.h"
 
 template<class T> class LinkedList;
 
@@ -48,7 +49,7 @@ class ListNode{
 };
 
 template <class T> 
-class LinkedList{
+class LinkedList : public List<T>{
 
     private:
         ListNode <T>* head = nullptr;
@@ -63,7 +64,7 @@ class LinkedList{
         }
 
         
-        ~LinkedList() {
+        ~LinkedList(){
             ListNode<T> *curr = head; // Inizializza 'curr' al primo nodo della lista (head)
             ListNode<T> *nxt; // Puntatore temporaneo per memorizzare il nodo successivo
         
@@ -91,7 +92,7 @@ class LinkedList{
             Inserisce un nuovo nodo all'inizio della lista
             Parametro: Elemento da inserire
         */
-        void pushFront(T e){
+        void pushFront(T e) override{
             
             ListNode<T> * newNode = new ListNode<T>();
             newNode->val = e; // Assegno il valore al nodo
@@ -108,7 +109,7 @@ class LinkedList{
             Inserisce un nuovo nodo alla fine della lista
             Parametro: Elemento da inserire
         */
-        void pushBack(T e){
+        void pushBack(T e) override {
             
             ListNode<T>  * curr = head; 
             ListNode<T>  * prec = curr; 
@@ -136,7 +137,7 @@ class LinkedList{
             Se l'indice è > i, l'operazione non viene svolta
             si potrebbe pensare di inserire l'elemento alla fine
         */
-        void insertAt(int index,T e){
+        void insertAt(int index,T e) override{
             ListNode<T> * curr = head;
             ListNode<T> * tmp;
 
@@ -169,11 +170,6 @@ class LinkedList{
             }
        }
         
-       /*
-            Inserisce un nodo in una lista ordinata
-       */
-        void insertSorted(T e);
-
         // ============================================================ //
 
         /*
@@ -186,7 +182,7 @@ class LinkedList{
         */
 
         // Rimuove il nodo all'inizio
-        void removeFront(){
+        void removeFront() override{
 
             ListNode<T> * toDelete;
 
@@ -199,7 +195,7 @@ class LinkedList{
         }
 
         // Rimuove il nodo alla fine della lista
-        void removeBack(){
+        void removeBack() override {
 
             ListNode<T> * curr = head;
             ListNode<T> * prec = head;
@@ -226,7 +222,7 @@ class LinkedList{
         }
 
         // Rimuove il nodo ad un determinato indice 
-        void removeAt(int index){
+        void removeAt(int index) override {
             ListNode<T> * curr = head;
             ListNode<T> * prec = head;
             int i = 0;
@@ -258,7 +254,7 @@ class LinkedList{
         */
 
         // Ricerca lineare di un elemento
-        int searchElement(T e){
+        int searchElement(T e) override{
 
             ListNode<T> * curr = head;
             int index = 0;
@@ -305,7 +301,7 @@ class LinkedList{
             
         }
         
-        void changeAt(T e,int index){
+        void changeAt(T e,int index) override{
             ListNode<T> * curr = head;
             int i = 0;
 
@@ -321,7 +317,7 @@ class LinkedList{
         }
 
         // Ritorna il valore ad un indice
-        T getAt(int index){
+        T getAt(int index) override{
             ListNode<T> * curr = head;
             int i = 0;
 
@@ -349,7 +345,7 @@ class LinkedList{
         */
 
         // Stampa la lista
-        void toString() const{
+        void toString() const override{
             ListNode<T> * curr = head;
 
             while (curr != nullptr)
@@ -413,7 +409,7 @@ class LinkedList{
     
 
         // Controlla se la lista è vuota
-        bool isEmpty() const {
+        bool isEmpty() const override{
             return head==nullptr;
         }
 
@@ -483,7 +479,7 @@ class LinkedList{
 
         }
 
-        int size(){
+        int size() const override{
 
             ListNode<T> * curr = head;
             int c = 0;
@@ -497,7 +493,68 @@ class LinkedList{
             return c;            
         }
 
-    };
+        // Override dell'operatore 
+        bool operator!=(const LinkedList& l) const {
+            
+            // Se la lunghezza è diversa sono diverse => return vero
+            if(this->size() != l.size()){
+                return true;
+            }
 
+            // INIZIALIZZA QUI
+            ListNode<T> * curr1 = this->head;
+            ListNode<T> * curr2 = l.head;
+
+            while(curr1 != nullptr){
+
+                if(curr1->val != curr2->val){
+                    
+                    return true; // Ritorna vero quando sono diverse
+
+                }else{
+
+                    curr1 = curr1->next; 
+                    curr2 = curr2->next; 
+                }
+
+            }
+            return false;
+            
+        } 
+
+    // exchange(p1, p2): scambia l'elemento in posizione p1 con quello in posizione p2
+    void exchange(int p1, int p2){
+
+        if (isEmpty() || p1 == p2) {
+            return;
+        }
+
+        ListNode<T> * curr = head;
+        ListNode<T> * nodeP1 = nullptr;
+        ListNode<T> * nodeP2 = nullptr;
+        int index = 0;
+
+        while (curr != nullptr && (nodeP1 == nullptr || nodeP2 == nullptr)) {
+            if (index == p1) {
+                nodeP1 = curr;
+            }
+            if (index == p2) {
+                nodeP2 = curr;
+            }
+            index++;
+            curr = curr->next;
+        }
+
+        // Se non sono vuoti
+        if (nodeP1 != nullptr && nodeP2 != nullptr) {
+            T tmp = nodeP1->val;
+            nodeP1->val = nodeP2->val;
+            nodeP2->val = tmp;
+        }
+    }
+
+
+
+};
 
 #endif
