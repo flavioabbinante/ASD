@@ -44,7 +44,7 @@ public:
     /** PROFONDITA' DEFINIZIONE:
      * Il numero di nodi che ci sono tra l'albero e il nodo piu un basso
      */
-    // virtual int getDepth(TreeNode<DataType>* node) const = 0;
+    virtual int getDepth(NodeType node) const = 0;
 
     // Search
 

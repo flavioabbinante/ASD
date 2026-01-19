@@ -122,7 +122,7 @@ class NaryTree_FCNS:public NaryTree<DataType,TreeNode<DataType>*>
             return w;
         }
 
-        int getDepth(TreeNode<DataType>* node) const {
+        int getDepth(TreeNode<DataType>* node) const override {
             
             int d = 0; // Depth
 
