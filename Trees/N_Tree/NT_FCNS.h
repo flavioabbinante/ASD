@@ -90,9 +90,9 @@ class NaryTree_FCNS:public NaryTree<DataType,TreeNode<DataType>*>
         }
 
         int getWidth() const override{
-            int w = 0;
-            Queue<TreeNode<DataType>*> q;
-            TreeNode<DataType>* child;
+            int w = 0; // Width -- Larghezza
+            Queue<TreeNode<DataType>*> q; // Coda
+            TreeNode<DataType>* child; // Nodo figlio
             TreeNode<DataType>* current; 
 
             // Inizio dalla radice

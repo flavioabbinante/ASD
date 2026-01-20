@@ -1,65 +1,30 @@
-#include "GrafoList.h"
+#include "GrafoMatrix.h"
 #include <iostream>
 
-int main() {
-    // Creazione del grafo con massimo 10 nodi
-    GraphList<int, int> g(10);
+int main(){
 
-    GraphNode g1, g2, g3, g4;
+    GrafoMatrix<char, int> grafo(5);
 
-    // --- INSERIMENTO DEI NODI ED ARCHI ---
-    g.insertNode(g1, 5);  // ID: 0
-    g.insertNode(g2, 10); // ID: 1
-    g.insertNode(g3, 15); // ID: 2
-    g.insertNode(g4, 20); // ID: 3
+    NodoGrafo n1(1);
+    NodoGrafo n2(2);
+    NodoGrafo n3(3);
+    NodoGrafo n4(4);
 
-    g.insertEdge(g1, g2, 1); // 0 -> 1
-    g.insertEdge(g1, g3, 1); // 0 -> 2
-    g.insertEdge(g3, g4, 2); // 2 -> 3
-    g.insertEdge(g2, g3, 3); // 1 -> 2
+    grafo.insertNode(n1,'A');
+    grafo.insertNode(n2,'B');
+    grafo.insertNode(n3,'C');
+    grafo.insertNode(n4,'D');
 
-    std::cout << "--- Struttura Iniziale ---" << std::endl;
-    g.toString();
+    grafo.insertEdge(n1,n2,1);
+    grafo.insertEdge(n2,n1,5);
 
-    // --- TEST UTILITY DI ESISTENZA ---
-    std::cout << "\n--- Verifica Esistenza ---" << std::endl;
-    if (g.existsNode(g4)) {
-        std::cout << "Il nodo g4 esiste correttamente." << std::endl;
-    }
-    if (g.existsEdge(g1, g2)) {
-        std::cout << "L'arco g1 -> g2 esiste correttamente." << std::endl;
-    }
+    grafo.insertEdge(n1,n3,2);
+    grafo.insertEdge(n2,n3,3);
 
-    // --- TEST RIMOZIONE ARCO ---
-    std::cout << "\n--- Rimozione Arco g1 -> g3 ---" << std::endl;
-    g.removeEdge(g1, g3); // Rimuove il collegamento tra 0 e 2
-    
-    std::cout << "Archi totali dopo rimozione arco: " << g.getNumEdges() << " (Atteso: 3)" << std::endl;
-    if (!g.existsEdge(g1, g3)) {
-        std::cout << "Confermato: l'arco g1 -> g3 non esiste piu'." << std::endl;
-    }
+    grafo.insertEdge(n3,n4,1);
+    grafo.insertEdge(n4,n1,5);
 
-    // --- TEST RIMOZIONE NODO ---
-    // Ricorda: rimuovere g2 deve cancellare:
-    // 1. L'arco uscente g2 -> g3
-    // 2. L'arco entrante g1 -> g2
-    std::cout << "\n--- Rimozione Nodo g2 (ID 1) ---" << std::endl;
-    g.removeNode(g2);
-
-    std::cout << "Nodi totali: " << g.getNumNodes() << " (Atteso: 3)" << std::endl;
-    std::cout << "Archi totali: " << g.getNumEdges() << " (Atteso: 1, rimasti solo g3 -> g4)" << std::endl;
-
-    // --- STAMPA FINALE PER VERIFICA ---
-    std::cout << "\n--- Struttura Finale ---" << std::endl;
-    g.toString();
-
-    // Verifica manuale della lista nodi rimasti
-    std::cout << "\nNodi ancora presenti (ID): ";
-    LinkedList<GraphNode> rimasti = g.getNodes();
-    for (int i = 0; i < rimasti.size(); i++) {
-        std::cout << rimasti.getAt(i).getGraphNodeId() << " "; 
-    }
-    std::cout << std::endl;
+    grafo.toString();
 
     return 0;
 }

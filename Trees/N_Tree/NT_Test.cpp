@@ -5,49 +5,38 @@ int main(){
 
     NaryTree_FCNS<int> nTree;
 
-    // Impostazione radice
-    nTree.setRoot(10);
-    
-    // Figli della radice
-    nTree.insertChild(nTree.getRoot(), 5);
-    nTree.insertChild(nTree.getRoot(), 8);
-    nTree.insertChild(nTree.getRoot(), 12);
-    
-    // Figli di 5
-    TreeNode<int>* node5 = nTree.getFirstChild(nTree.getRoot());
-    nTree.insertChild(node5, 2);
-    nTree.insertChild(node5, 6);
-    
-    // Figlio di 6
-    TreeNode<int>* node6 = node5->firstChild->nextSibling; // 6
-    nTree.insertChild(node6, 7);
-    
-    // Figli di 8
-    TreeNode<int>* node8 = node5->nextSibling; // 8
-    nTree.insertChild(node8, 9);
-    nTree.insertChild(node8, 11);
-    
-    // Figlio di 12
-    TreeNode<int>* node12 = node8->nextSibling; // 12
-    nTree.insertChild(node12, 15);
-    
-    // Figli di 15
-    TreeNode<int>* node15 = nTree.getFirstChild(node12); // 15
-    nTree.insertChild(node15, 13);
-    nTree.insertChild(node15, 16);
-    nTree.insertChild(node15, 18);
+    // Livello 0 e Livello 1
+    nTree.setRoot(20);
+    nTree.insertChild(nTree.getRoot(), 2);
+    nTree.insertChild(nTree.getRoot(), 34);
+    nTree.insertChild(nTree.getRoot(), 50);
+    nTree.insertChild(nTree.getRoot(), 60);
+    nTree.insertChild(nTree.getRoot(), 70);
 
+    // Figli del nodo 2
+    auto due = nTree.getFirstChild(nTree.getRoot());
+    nTree.insertChild(due, 15);
+    nTree.insertChild(due, 20);
 
+    // Figlio del nodo 34
+    auto trentaquattro = nTree.getNextSibling(due);
+    nTree.insertChild(trentaquattro, 30);
 
+    // Figli del nodo 50
+    auto cinquanta = nTree.getNextSibling(trentaquattro);
+    nTree.insertChild(cinquanta, 40);
+    nTree.insertChild(cinquanta, 100);
+    nTree.insertChild(cinquanta, 20);
+
+    // Figli del nodo 20 (quello sotto il 2)
+    auto ventiSottoDue = nTree.getNextSibling(nTree.getFirstChild(due));
+    nTree.insertChild(ventiSottoDue, 25);
+    nTree.insertChild(ventiSottoDue, 50);
+
+    // Output di verifica
     nTree.bfs(nTree.getRoot());
-
-    std::cout << "\n\n";
-
-    std::cout << nTree.getWidth() << std::endl;
-
-    std::cout << nTree.getDepth(nTree.getRoot());
-
+    std::cout << "\n\nLarghezza: " << nTree.getWidth() << std::endl;
+    std::cout << "Profondita: " << nTree.getDepth(nTree.getRoot()) << std::endl;
 
     return 0;
-
 }

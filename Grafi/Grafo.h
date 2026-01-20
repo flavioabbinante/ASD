@@ -82,8 +82,8 @@ class Grafo{
 //
 //
         // --- Utility / opzionali ---
-        virtual bool existsNode(N node) const = 0;
-        virtual bool existsEdge(N node1, N node2) const = 0;
+//        virtual bool existsNode(N node) const = 0;
+//        virtual bool existsEdge(N node1, N node2) const = 0;
 //
 //        // --- Distruttore ---
 //        virtual ~Grafo() {};
