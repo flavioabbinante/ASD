@@ -126,7 +126,16 @@ public:
 
         std::cout << "BOTTOM" << std::endl;
     }
+int size() const{
+    int count = 0;
+    StackNode<T> * curr = top;
 
+    while(curr!=nullptr){
+        count++;
+        curr = curr->next;
+    }   
+    return count;
+}
     
     
 };
